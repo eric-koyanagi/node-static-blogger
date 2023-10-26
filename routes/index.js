@@ -25,7 +25,7 @@ router.post("/article/create", article_controller.article_create_post);
 router.post("/article/:id/delete", article_controller.article_delete_post);
 
 // GET request to render an article for preview
-router.get("/article/:id", article_controller.article_detail);
+router.get("/article/edit/:id", article_controller.article_detail);
 
 // TODO: add other controller routes here, or separate them into different files if this becomes too lengthy
 

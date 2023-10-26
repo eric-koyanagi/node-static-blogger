@@ -4,10 +4,12 @@ const asyncHandler = require("express-async-handler");
 
 // List of articles for editing
 exports.article_list = asyncHandler(async (req, res, next) => {
-    console.log(Article);
-    Article.findAll()
+    Article.findAll({ order: [['id', 'DESC']] })
         .then(data => {
-            res.send(data);
+            res.render("index", {
+                title: "Article Index",
+                articles: data,
+              });
         })
         .catch(err => {
             res.status(500).send({
