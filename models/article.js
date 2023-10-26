@@ -1,11 +1,20 @@
-import { Sequelize, DataTypes } from 'sequelize';
+module.exports = (sequelize, Sequelize) => {
+  const Article = sequelize.define("articles", {
+    title: {
+      type: Sequelize.STRING
+    },
+    body: {
+      type: Sequelize.STRING
+    },
+    published: {
+      type: Sequelize.BOOLEAN
+    },
+    created_at: {
+      type: Sequelize.DATE
+    },    
+  }, {
+    timestamps: false,
+  });
 
-const sequelize = new Sequelize('sqlite::memory:');
-const Article = sequelize.define('Article', {
-    title: DataTypes.STRING,
-    body: DataTypes.DATE,
-
-});
-
-// Export model
-module.exports = mongoose.model("Article", ArticleSchema);
+  return Article;
+};

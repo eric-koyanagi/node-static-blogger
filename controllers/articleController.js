@@ -1,9 +1,20 @@
-const Article = require("../models/article");
+const db = require("../models");
+const Article = db.articles;
 const asyncHandler = require("express-async-handler");
 
 // List of articles for editing
 exports.article_list = asyncHandler(async (req, res, next) => {
-    res.send("NOT IMPLEMENTED: Article list");
+    console.log(Article);
+    Article.findAll()
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while retrieving articles."
+            });
+        });
 });
 
 // Article detail (rendered preview)
