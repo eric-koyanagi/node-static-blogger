@@ -19,7 +19,7 @@ router.get("/article/create", article_controller.article_create_get);
 router.post("/article/create", article_controller.article_create_post);
 
 // GET for article update
-//router.get("/article/edit/:id", article_controller.article_detail);
+router.get("/article/edit/:id", article_controller.article_create_get);
 
 // POST request to delete
 router.post("/article/delete/:id", article_controller.article_delete_post);

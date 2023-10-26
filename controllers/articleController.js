@@ -1,6 +1,7 @@
 const db = require("../models");
 const Article = db.articles;
 const asyncHandler = require("express-async-handler");
+const { body, validationResult } = require("express-validator");
 
 // List of articles for editing
 // See here for more about how asyncHandler reduces boilerplate: https://www.npmjs.com/package/express-async-handler
@@ -17,7 +18,8 @@ exports.article_preview = asyncHandler(async (req, res, next) => {
 
 // Article create / update form
 exports.article_create_get = asyncHandler(async (req, res, next) => {
-    res.send("NOT IMPLEMENTED: AutArticlehor create GET");
+    const data = (req.params.id) ? await Article.findByPk(req.params.id) : null;
+    res.render("articleForm", { title: "Create or Edit Article", article: data });
 });
 
 exports.article_update_get = asyncHandler(async (req, res, next) => {
@@ -27,6 +29,7 @@ exports.article_update_get = asyncHandler(async (req, res, next) => {
 // Article create / update action
 exports.article_create_post = asyncHandler(async (req, res, next) => {
     res.send("NOT IMPLEMENTED: Article create POST");
+    //res.render("articleForm", { title: "Create or Edit Article", article: data, errors: [] });
 });
 
 // Article delete action
