@@ -3,25 +3,16 @@ const Article = db.articles;
 const asyncHandler = require("express-async-handler");
 
 // List of articles for editing
+// See here for more about how asyncHandler reduces boilerplate: https://www.npmjs.com/package/express-async-handler
 exports.article_list = asyncHandler(async (req, res, next) => {
-    Article.findAll({ order: [['id', 'DESC']] })
-        .then(data => {
-            res.render("index", {
-                title: "Article Index",
-                articles: data,
-              });
-        })
-        .catch(err => {
-            res.status(500).send({
-                message:
-                    err.message || "Some error occurred while retrieving articles."
-            });
-        });
+    const data = await Article.findAll({ order: [['id', 'DESC']] });
+    res.render("index", { title: "Articles", articles: data });
 });
 
 // Article detail (rendered preview)
-exports.article_detail = asyncHandler(async (req, res, next) => {
-    res.send(`NOT IMPLEMENTED: Article detail: ${req.params.id}`);
+exports.article_preview = asyncHandler(async (req, res, next) => {
+    const data = await Article.findByPk(req.params.id);
+    res.render("articlePreview", { title: data.title, article: data });
 });
 
 // Article create / update form
