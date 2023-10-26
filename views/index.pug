@@ -2,14 +2,19 @@ extends layout
 
 block content
   h1= title
-  p Select an article to edit by clicking on its title. 
+  p Welcome to the blog admin...
   p  
-    a(href="/article/create") Create a new article
-  ul
+    a(href="/article/create") + Create a new article
+  ul(class="articleList")
     each article in articles
       li
-        a(href="/article/edit/"+article.id) #{article.title}
+        span #{article.title}
         br 
-        span Posted on #{article.getPublishedDate()}
+        span 
+          em Posted #{article.getPublishedDate()} 
+        br
+        a(href="/article/edit/"+article.id) Edit
+        |  | 
+        a(href="/article/view/"+article.id) Preview
     else
       li There are no articles.

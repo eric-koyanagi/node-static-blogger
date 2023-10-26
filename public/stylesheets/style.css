@@ -6,3 +6,11 @@ body {
 a {
   color: #00B7FF;
 }
+
+.articleList {
+
+}
+
+.articleList li {
+  margin:10px 0;
+}
