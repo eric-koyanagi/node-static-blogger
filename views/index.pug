@@ -5,7 +5,7 @@ block content
   p Welcome to the blog admin...
   p  
     a(href="/article/create") + Create a new article
-  ul(class="articleList")
+  ul.articleList
     each article in articles
       li
         span #{article.title}
