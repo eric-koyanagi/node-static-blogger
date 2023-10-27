@@ -4,10 +4,6 @@ var path = require('path');
 const express = require('express')
 
 class ArticleDetailBuilder extends PageBuilderInterface {
-  setLayout() {
-    this.layout = 'layout-article';
-  }
-
   async setContent(data) 
   {  
     this.data = data;

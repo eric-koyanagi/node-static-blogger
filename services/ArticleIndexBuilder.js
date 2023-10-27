@@ -4,10 +4,6 @@ var path = require('path');
 const express = require('express')
 
 class ArticleIndexBuilder extends PageBuilderInterface {
-  setLayout() {
-    this.layout = 'layout-article-index';
-  }
-
   async setContent(Article) 
   {  
     this.data = await Article.findAll({ order: [['id', 'DESC']] })
@@ -23,7 +19,7 @@ class ArticleIndexBuilder extends PageBuilderInterface {
       if (err) {
         console.log("Render error", err)
       }
-      
+
       publisher.publish("index.html", html)
     });
   }
