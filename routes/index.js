@@ -1,15 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
-// router.get('/', function(req, res, next) {
-//   res.render('index', { title: 'Express' });
-// });
-
-// Require controllers
-const article_controller = require("../controllers/articleController");
-
 // Article Routes
+const article_controller = require("../controllers/articleController");
 
 // Article list (HP)
 router.get("/", article_controller.article_list);
@@ -18,7 +11,7 @@ router.get("/", article_controller.article_list);
 router.get("/article/create", article_controller.article_create_get);
 router.post("/article/create", article_controller.article_create_post);
 
-// GET for article update
+// GET + POST for article update (uses same methods as creation)
 router.get("/article/edit/:id", article_controller.article_create_get);
 router.post("/article/edit/:id", article_controller.article_create_post);
 
@@ -28,6 +21,6 @@ router.post("/article/delete/:id", article_controller.article_delete_post);
 // GET request to render an article for preview
 router.get("/article/view/:id", article_controller.article_preview);
 
-// TODO: add other controller routes here, or separate them into different files if this becomes too lengthy
+// @TODO: add other controller routes here, or separate them into different files if this becomes too lengthy
 
 module.exports = router;
