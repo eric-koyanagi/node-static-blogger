@@ -49,6 +49,8 @@ exports.article_create_post = [
                 published: req.body.published,
             }, [{id: req.body.id}])
 
+            await article.publish();    
+
             res.render("articleForm", { title: "Create or Edit Article", article: article, saved: true });
         } else {            
             res.render("articleForm", { title: "Create or Edit Article", article: req.body, errors: errors });

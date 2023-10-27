@@ -8,6 +8,7 @@
     "serverstart": "DEBUG=static-blogger:* npm run devstart"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.437.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "dotenv": "^16.3.1",
