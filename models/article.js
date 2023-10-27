@@ -37,17 +37,17 @@ module.exports = (sequelize, Sequelize) => {
       return moment(this.createdAt).format('MM/D/YY');
   };
 
-  Article.prototype.publish = async function() {      
-      this.pageBuilder.setContent(this.body)
-      this.indexBuilder.setContent()
-      return await Promise.all([
-        publisher.publish("index.html", this.indexBuilder.buildPage()),
-        publisher.publish(this.slug, this.pageBuilder.buildPage())
-      ]);
+  Article.prototype.publish = async function() {
+      pageBuilder.setContent(this)
+      await indexBuilder.setContent(Article)
+
+      indexBuilder.buildPage(publisher);
+      pageBuilder.buildPage(publisher);
   };
 
-  Article.rebuildIndex = function() {
-
+  Article.rebuildIndex = async function() {
+      this.indexBuilder.setContent()
+      await publisher.publish("index.html", this.indexBuilder.buildPage())
   }
 
   Article.upsert = function(values, condition) {    

@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to the blog admin...
+  p  
+    a(href="/article/create") + Create a new article
+  ul.articleList
+    each article in articles
+      li
+        span #{article.title}
+        br 
+        span 
+          em Posted #{article.getPublishedDate()} 
+        br
+        a(href="/article/edit/"+article.id) Edit
+        |  | 
+        a(href="/article/view/"+article.id) Preview
+    else
+      li There are no articles.

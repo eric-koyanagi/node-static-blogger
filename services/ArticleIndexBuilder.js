@@ -1,22 +1,31 @@
 const PageBuilderInterface = require('../interfaces/PageBuilderInterface');
 const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3"); 
-
-const db = require("../models");
-const Article = db.articles;
+var path = require('path');
+const express = require('express')
 
 class ArticleIndexBuilder extends PageBuilderInterface {
   setLayout() {
-    this.layout = 'article-index-layout';
+    this.layout = 'layout-article-index';
   }
 
-  async setContent() 
+  async setContent(Article) 
   {  
     this.data = await Article.findAll({ order: [['id', 'DESC']] })
   }
 
-  buildPage() 
+  buildPage(publisher) 
   {
+    var appInstance = express();
+    appInstance.set('views', [path.join(__dirname, '../views/rendered-index'), ]); 
+    appInstance.set('view engine', 'pug'); 
 
+    appInstance.render("index", { articles: this.data }, (err, html) => {
+      if (err) {
+        console.log("Render error", err)
+      }
+      
+      publisher.publish("index.html", html)
+    });
   }
 }
-module.exports = ArticleIndexBuilder
+module.exports = new ArticleIndexBuilder()
