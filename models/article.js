@@ -5,7 +5,7 @@ module.exports = (sequelize, Sequelize) => {
           type: Sequelize.STRING
         },
         body: {
-          type: Sequelize.STRING
+          type: Sequelize.TEXT
         },
         author: {
           type: Sequelize.STRING
@@ -30,6 +30,18 @@ module.exports = (sequelize, Sequelize) => {
 
   Article.prototype.getPublishedDate = function() {
       return moment(this.createdAt).format('MM/D/YY');
+  };
+
+  Article.upsert = function(values, condition) {    
+    return Article
+      .findOne({ where: condition })
+      .then(function(obj) {
+          if(obj)
+            return obj.update(values);
+
+          return Model.create(values);
+      })
+    
   };
 
   return Article;

@@ -6,9 +6,20 @@ block content
     a(href="/") &laquo; Back
   br
 
-  form(method='POST' action='')
+  if saved
+    p.alert-success Saved Successfully!
+
+  if errors
+   ul.alert-danger
+    for error in errors.errors
+     li!= error.msg
+
+  form#edit-form(method='POST' action='')
+    input#body(type='hidden' name='body' value='')
+    input#body(type='hidden' name='id' value=(article ? article.id : ""))
+
     div.form-check.form-group
-      input#published.form-check-input(type='checkbox', name='Published' checked=(article ? article.published : false))
+      input#published.form-check-input(type='checkbox', name='published', value='1', checked=(article ? article.published : false))
       label.form-check-label(for='published') Published:      
     div.form-group
       label(for='title') Title:
@@ -18,11 +29,44 @@ block content
       input#author.form-control(type='text', placeholder='Article Author' name='author' value=(article ? article.author : ""))
     div.form-group
       label(for='body') Body:
-      textarea#body.form-control(name='body' rows='30') #{(article ? article.body : "")}
+      div#articleBody.form-control(name='body' rows='30') !{(article ? article.body : "")}
 
     button.btn.btn-primary(type='submit') Submit
 
-  if errors
-   ul
-    for error in errors
-     li!= error.msg
+block scripts
+  script.
+    var toolbarOptions = [
+      ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+      ['blockquote', 'code-block'],
+
+      [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+      [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+      [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+      [{ 'direction': 'rtl' }],                         // text direction
+
+      [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+      [ 'link', 'image', 'video', 'formula' ],          // add's image support
+      [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+      [{ 'font': [] }],
+      [{ 'align': [] }],
+
+      ['clean']                                         // remove formatting button
+    ];
+
+    // initializes quill
+    var quill = new Quill('#articleBody', {
+      theme: 'snow',
+      modules: {
+        toolbar: toolbarOptions
+      }
+    });
+
+    // adds quill-based content to actual form, since it exists in a div 
+    function updateBody(ev) {    
+      document.getElementById("body").value = quill.root.innerHTML;
+    }
+    const form = document.getElementById("edit-form");
+    form.addEventListener("submit", updateBody);
+    
