@@ -7,3 +7,9 @@ block content
     em Posted on #{article.getPublishedDate()}
   .
     !{article.body}
+  if (previousArticle)
+    a(href="/articles/" + previousArticle.slug) &laquo; #{previousArticle.title}
+  if (nextArticle)
+    if (previousArticle)
+      |  |     
+    a(href="/articles/" + nextArticle.slug) #{nextArticle.title} &raquo; 

@@ -22,19 +22,37 @@ block content
       input#published.form-check-input(type='checkbox', name='published', value='1', checked=(article ? article.published : false))
       label.form-check-label(for='published') Published:      
     div.form-group
-      label(for='title') Title:
+      label(for='title') Title*:
       input#title.form-control(type='text', placeholder='Article Title' name='title' value=(article ? article.title : ""))
     div.form-group
-      label(for='author') Author:
+      label(for='author') Author*:
       input#author.form-control(type='text', placeholder='Article Author' name='author' value=(article ? article.author : ""))
     div.form-group
-      label(for='body') Body:
+      label(for='body') Body*:
       div#articleBody.form-control(name='body' rows='30') !{(article ? article.body : "")}
+
+    div.form-group
+      label(for='previous') Previous Article:
+      br
+      select(name='previous')
+        option(value=0) (none)
+        each listArticle in articleList
+          option(value=listArticle.id, selected=listArticle.id == article.previous_id) #{listArticle.title}
+    div.form-group
+      label(for='next') Next Article:
+      br
+      select(name='next')
+        option(value=0) (none)
+        each listArticle in articleList
+          option(value=listArticle.id, selected=listArticle.id == article.next_id) #{listArticle.title}
 
     button.btn.btn-primary(type='submit') Submit
 
 block scripts
   script.
+    console.log(!{JSON.stringify(article)})
+    console.log("Previous", !{JSON.stringify(article.getPreviousId())} );    
+
     var toolbarOptions = [
       ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
       ['blockquote', 'code-block'],

@@ -7,3 +7,13 @@ block content
     em Posted on #{article.getPublishedDate()}
   .
     !{article.body}
+
+  if article.previousArticle
+    a(href="/articles/" + article.previousArticle.slug) &laquo; #{article.previousArticle.title}
+  if article.nextArticle
+    if article.previousArticle
+      |  |     
+    a(href="/articles/" + article.nextArticle.slug) #{article.nextArticle.title} &raquo; 
+
+  script.
+    console.log(!{JSON.stringify(article)})

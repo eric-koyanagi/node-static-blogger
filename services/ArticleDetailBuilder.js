@@ -7,6 +7,8 @@ class ArticleDetailBuilder extends PageBuilderInterface {
   async setContent(data) 
   {  
     this.data = data;
+    this.nextArticle = await this.data.getNextArticle()
+    this.previousArticle = await this.data.getPreviousArticle()
   }
 
   buildPage(publisher) 
@@ -15,9 +17,12 @@ class ArticleDetailBuilder extends PageBuilderInterface {
     appInstance.set('views', [path.join(__dirname, '../views/rendered-article'), ]); 
     appInstance.set('view engine', 'pug'); 
 
-    appInstance.render("article", { article: this.data }, (err, html) => {
+    console.log("previous ", this?.previousArticle?.dataValues)
+    console.log("next ", this?.nextArticle?.dataValues)
+
+    appInstance.render("article", { article: this.data, nextArticle: this?.nextArticle?.dataValues, previousArticle: this?.previousArticle?.dataValues }, (err, html) => {
       if (err) {
-        console.log("Render error", err)
+        throw new Error(err)
       }
 
       publisher.publish(this.data.slug, html)
