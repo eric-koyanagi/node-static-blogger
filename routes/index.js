@@ -4,7 +4,7 @@ var router = express.Router();
 // Article Routes
 const article_controller = require("../controllers/articleController");
 
-// Article list (HP)
+// Article list and management portal (HP)
 router.get("/", article_controller.article_list);
 
 // GET + POST for article creation
@@ -27,6 +27,10 @@ router.get("/article/rebuild", article_controller.article_rebuild_all_get);
 // GET request to view article index preview
 router.get("/article/index-preview", article_controller.article_index_preview);
 
-// @TODO: add other controller routes here, or separate them into different files if this becomes too lengthy
+// Author Routes
+const author_controller = require("../controllers/authorController");
+
+// Author list and management portal
+router.get("/author", author_controller.author_list);
 
 module.exports = router;

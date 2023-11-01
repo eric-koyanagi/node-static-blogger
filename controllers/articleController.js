@@ -72,12 +72,17 @@ exports.article_create_post = [
     })
 ];
 
+// Article delete confirmation form
+exports.article_delete_get = asyncHandler(async (req, res, next) => {
+    res.send("NOT IMPLEMENTED: Article delete GET");
+});
+
 // Article delete action
 exports.article_delete_post = asyncHandler(async (req, res, next) => {
     res.send("NOT IMPLEMENTED: Article delete POST");
 });
 
-// Article rebuilt all action (this is done synchronously due to API limits, with a "sleep" between API calls; to improve, imnplement exponential backup)
+// Article rebuild all action (this is done synchronously due to API limits, with a "sleep" between API calls; to improve, implement an exponential backup)
 exports.article_rebuild_all_get = asyncHandler(async (req, res, next) => {    
     const articles = await Article.findAll({include: ['previousArticle', 'nextArticle']});
     var promises = [];
@@ -87,7 +92,6 @@ exports.article_rebuild_all_get = asyncHandler(async (req, res, next) => {
             new Promise(resolve => { setTimeout(resolve, 500); })
         ]);
     };
-
-    //await Promise.all(promises);    
+  
     res.send("Everything is done rebuilding...");
 });

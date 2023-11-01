@@ -8,9 +8,13 @@ block content
       ul.flex.flex-wrap.justify-left.items-center
         li.mr-3
           a(href="/article/create").text-cyan-700 🆕 Create a new article
-        li
+        li.mr-3
           a(href="/article/index-preview").text-cyan-700 ⏩️ Preview Article Index
         li.mr-3
+          a(href="/author").text-cyan-700 🚻 Manage Authors
+        li.mr-3
+          a(href="/").text-cyan-700 ⬆️ Upload Styles
+        li
           a(href="/article/rebuild").text-cyan-700 🔄 Rebuild All Articles
     ul.articleList
       each article in articles
