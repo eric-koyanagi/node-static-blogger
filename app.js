@@ -20,7 +20,10 @@ db.sequelize.sync()
   });
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', [
+  path.join(__dirname, 'views'),
+  path.join(__dirname, 'views/rendered-article')
+]);
 app.set('view engine', 'pug');
 
 app.use(logger('dev'));

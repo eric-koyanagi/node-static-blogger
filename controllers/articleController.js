@@ -15,10 +15,10 @@ exports.article_list = asyncHandler(async (req, res, next) => {
 exports.article_preview = asyncHandler(async (req, res, next) => {
     const data = await Article.findByPk(req.params.id, {include: ['previousArticle', 'nextArticle']});
 
-    var appInstance = req.app;
-    appInstance.set('views', [path.join(__dirname, '../views/rendered-article'), ]);     
+    var appInstance = req.app;5
+    //appInstance.set('views', [path.join(__dirname, '../views/rendered-article'), ]);
 
-    res.render("article", { title: data.title, article: data, previousArticle: data?.previousArticle, nextArticle: data?.nextArticle });
+    res.render("./rendered-article/article", { title: data.title, article: data, previousArticle: data?.previousArticle, nextArticle: data?.nextArticle });
 });
 
 // Article create / update form

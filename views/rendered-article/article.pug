@@ -1,15 +1,16 @@
 extends layout
 
 block content
-  h1=article.title
-  div By #{article.author}
-  div 
-    em Posted on #{article.getPublishedDate()}
-  .
-    !{article.body}
-  if (previousArticle)
-    a(href="/articles/" + previousArticle.slug) &laquo; #{previousArticle.title}
-  if (nextArticle)
+  article.max-w-prose.mx-auto.mt-5.text-sm
+    h1.text-lg=article.title
+    div By #{article.author}
+    div.mb-1
+      em Posted on #{article.getPublishedDate()}
+    .
+      !{article.body}
     if (previousArticle)
-      |  |     
-    a(href="/articles/" + nextArticle.slug) #{nextArticle.title} &raquo; 
+      a(href="/articles/" + previousArticle.slug) &laquo; #{previousArticle.title}
+    if (nextArticle)
+      if (previousArticle)
+        |  |     
+      a(href="/articles/" + nextArticle.slug) #{nextArticle.title} &raquo; 

@@ -49,42 +49,5 @@ block content
     button.btn.btn-primary(type='submit') Submit
 
 block scripts
-  script.
-    console.log(!{JSON.stringify(article)})
-    console.log("Previous", !{JSON.stringify(article.getPreviousId())} );    
-
-    var toolbarOptions = [
-      ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-      ['blockquote', 'code-block'],
-
-      [{ 'header': 1 }, { 'header': 2 }],               // custom button values
-      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-      [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
-      [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-      [{ 'direction': 'rtl' }],                         // text direction
-
-      [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-      [ 'link', 'image', 'video', 'formula' ],          // add's image support
-      [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-      [{ 'font': [] }],
-      [{ 'align': [] }],
-
-      ['clean']                                         // remove formatting button
-    ];
-
-    // initializes quill
-    var quill = new Quill('#articleBody', {
-      theme: 'snow',
-      modules: {
-        toolbar: toolbarOptions
-      }
-    });
-
-    // adds quill-based content to actual form, since it exists in a div 
-    function updateBody(ev) {    
-      document.getElementById("body").value = quill.root.innerHTML;
-    }
-    const form = document.getElementById("edit-form");
-    form.addEventListener("submit", updateBody);
+  script(src='/javascript/quillConfig.js')
     

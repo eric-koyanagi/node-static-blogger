@@ -6,7 +6,7 @@
     "start": "node ./bin/www",
     "devstart": "nodemon ./bin/www",
     "serverstart": "DEBUG=static-blogger:* npm run devstart",
-    "tailwind:css": "postcss public/stylesheets/tailwind.css -o public/stylesheets/style.css"
+    "tailwind:css": "postcss public/stylesheets/tailwind.css -o public/stylesheets/style.css --watch"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.437.0",
