@@ -25,7 +25,7 @@ exports.article_index_preview = asyncHandler(async (req, res, next) => {
 // Article create / update form
 exports.article_create_get = asyncHandler(async (req, res, next) => {
     const data = (req.params.id) ? await Article.findByPk(req.params.id, {include: ['previousArticle', 'nextArticle']}) : null;
-    const links = await Article.getPossibleLinks(req.params.id);
+    const links = await Article.getPossibleLinks(req.params.id || 0);
 
     res.render("articleForm", { 
         title: "Create or Edit Article", 
