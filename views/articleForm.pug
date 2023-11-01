@@ -29,7 +29,7 @@ block content
       input#author.form-control(type='text', placeholder='Article Author' name='author' value=(article ? article.author : ""), class='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline')
     div.mb-3 
       label(for='body').text-gray-700.text-sm.font-bold.mb-2 Body*:
-      div#articleBody.form-control(name='body', rows='30', class='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline') !{(article ? article.body : "")}
+      div#articleBody.form-control(name='body', rows='30', class='max-h-screen overflow-auto shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline') !{(article ? article.body : "")}
 
     div.form-group
       label(for='previous').text-gray-700.text-sm.font-bold.mb-2 Previous Article:

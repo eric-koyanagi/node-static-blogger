@@ -9,6 +9,7 @@ class S3Publisher extends BlogPublisherInterface {
       Body: content,
       Bucket: process.env.AWS_BUCKET, 
       Key: fileName,
+      ContentType: 'text/html',
     };
 
     const command = new PutObjectCommand(input);
