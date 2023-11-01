@@ -1,20 +1,21 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to the blog admin...
-  p  
-    a(href="/article/create") + Create a new article
-  ul.articleList
-    each article in articles
-      li
-        span #{article.title}
-        br 
-        span 
-          em Posted #{article.getPublishedDate()} 
-        br
-        a(href="/article/edit/"+article.id) Edit
-        |  | 
-        a(href="/article/view/"+article.id) Preview
-    else
-      li There are no articles.
+  div.max-w-lg
+    h1.text-2xl.mb-1.text-cyan-800= title
+    p Welcome to the blog admin...
+    p.bg-zinc-300.p-3.my-2.rounded-md  
+      a(href="/article/create").text-cyan-700 + Create a new article
+    ul.articleList
+      each article in articles
+        li.border-l-4.border-cyan-500.mb-4.ml-3.pl-3
+          span.font-bold #{article.title}
+          br 
+          span 
+            em Posted #{article.getPublishedDate()} 
+          br
+          a(href="/article/edit/"+article.id).text-cyan-800 Edit
+          |  | 
+          a(href="/article/view/"+article.id).text-cyan-800 Preview
+      else
+        li There are no articles.

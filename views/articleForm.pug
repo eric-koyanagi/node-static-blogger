@@ -1,9 +1,9 @@
 extends layout
 
 block content
-  h1 #{title}
+  h1.text-xl #{title}
   div
-    a(href="/") &laquo; Back
+    a(href="/").text-cyan-600 &laquo; Back
   br
 
   if saved
@@ -14,39 +14,40 @@ block content
     for error in errors.errors
      li!= error.msg
 
-  form#edit-form(method='POST' action='')
+  form#edit-form(method='POST' action='').mx-auto
     input#body(type='hidden' name='body' value='')
     input#body(type='hidden' name='id' value=(article ? article.id : ""))
 
-    div.form-check.form-group
+    div.mb-3      
+      label.form-check-label(for='published').text-gray-700.text-sm.font-bold.mb-2 Published:      
       input#published.form-check-input(type='checkbox', name='published', value='1', checked=(article ? article.published : false))
-      label.form-check-label(for='published') Published:      
-    div.form-group
-      label(for='title') Title*:
-      input#title.form-control(type='text', placeholder='Article Title' name='title' value=(article ? article.title : ""))
-    div.form-group
-      label(for='author') Author*:
-      input#author.form-control(type='text', placeholder='Article Author' name='author' value=(article ? article.author : ""))
-    div.form-group
-      label(for='body') Body*:
-      div#articleBody.form-control(name='body' rows='30') !{(article ? article.body : "")}
+    div.mb-3 
+      label(for='title').text-gray-700.text-sm.font-bold.mb-2 Title*:
+      input#title.form-control(type='text', placeholder='Article Title' name='title' value=(article ? article.title : ""), class='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline')
+    div.mb-3 
+      label(for='author').text-gray-700.text-sm.font-bold.mb-2 Author*:
+      input#author.form-control(type='text', placeholder='Article Author' name='author' value=(article ? article.author : ""), class='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline')
+    div.mb-3 
+      label(for='body').text-gray-700.text-sm.font-bold.mb-2 Body*:
+      div#articleBody.form-control(name='body', rows='30', class='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline') !{(article ? article.body : "")}
 
     div.form-group
-      label(for='previous') Previous Article:
+      label(for='previous').text-gray-700.text-sm.font-bold.mb-2 Previous Article:
       br
-      select(name='previous')
+      select(name='previous', class='w-1/3 bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500')
         option(value=0) (none)
         each listArticle in articleList
           option(value=listArticle.id, selected=listArticle.id == article.previous_id) #{listArticle.title}
     div.form-group
-      label(for='next') Next Article:
+      label(for='next').text-gray-700.text-sm.font-bold.mb-2 Next Article:
       br
-      select(name='next')
+      select(name='next', class='w-1/3 bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500')
         option(value=0) (none)
         each listArticle in articleList
           option(value=listArticle.id, selected=listArticle.id == article.next_id) #{listArticle.title}
 
-    button.btn.btn-primary(type='submit') Submit
+    div.mt-4.mb-5
+      button.btn-primary(type='submit', class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline') Submit
 
 block scripts
   script(src='/javascript/quillConfig.js')
