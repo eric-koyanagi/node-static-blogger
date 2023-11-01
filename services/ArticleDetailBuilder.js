@@ -17,9 +17,6 @@ class ArticleDetailBuilder extends PageBuilderInterface {
     appInstance.set('views', [path.join(__dirname, '../views/rendered-article'), ]); 
     appInstance.set('view engine', 'pug'); 
 
-    console.log("previous ", this?.previousArticle?.dataValues)
-    console.log("next ", this?.nextArticle?.dataValues)
-
     appInstance.render("article", { article: this.data, nextArticle: this?.nextArticle?.dataValues, previousArticle: this?.previousArticle?.dataValues }, (err, html) => {
       if (err) {
         throw new Error(err)

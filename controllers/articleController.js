@@ -1,3 +1,4 @@
+const path = require('path');
 const db = require("../models");
 const Article = db.articles;
 const asyncHandler = require("express-async-handler");
@@ -13,15 +14,19 @@ exports.article_list = asyncHandler(async (req, res, next) => {
 // Article detail (rendered preview)
 exports.article_preview = asyncHandler(async (req, res, next) => {
     const data = await Article.findByPk(req.params.id, {include: ['previousArticle', 'nextArticle']});
-    res.render("articlePreview", { title: data.title, article: data });
+
+    var appInstance = req.app;
+    appInstance.set('views', [path.join(__dirname, '../views/rendered-article'), ]);     
+
+    res.render("article", { title: data.title, article: data, previousArticle: data?.previousArticle, nextArticle: data?.nextArticle });
 });
 
 // Article create / update form
 exports.article_create_get = asyncHandler(async (req, res, next) => {
     const data = (req.params.id) ? await Article.findByPk(req.params.id, {include: ['previousArticle', 'nextArticle']}) : null;
 
-    console.log("Data obtained for article is ", data)
-    const links = await Article.getPossibleLinks(req.params.id)
+    console.log("Data obtained for article is ", data);
+    const links = await Article.getPossibleLinks(req.params.id);
 
     res.render("articleForm", { 
         title: "Create or Edit Article", 

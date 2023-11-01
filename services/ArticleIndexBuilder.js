@@ -1,6 +1,6 @@
 const PageBuilderInterface = require('../interfaces/PageBuilderInterface');
 const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3"); 
-var path = require('path');
+const path = require('path');
 const express = require('express')
 
 class ArticleIndexBuilder extends PageBuilderInterface {
