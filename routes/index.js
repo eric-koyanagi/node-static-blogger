@@ -21,6 +21,12 @@ router.post("/article/delete/:id", article_controller.article_delete_post);
 // GET request to render an article for preview
 router.get("/article/view/:id", article_controller.article_preview);
 
+// GET request to rebuild all articles
+router.get("/article/rebuild", article_controller.article_rebuild_all_get);
+
+// GET request to view article index preview
+router.get("/article/index-preview", article_controller.article_index_preview);
+
 // @TODO: add other controller routes here, or separate them into different files if this becomes too lengthy
 
 module.exports = router;

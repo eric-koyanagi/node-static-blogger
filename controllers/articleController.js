@@ -13,19 +13,18 @@ exports.article_list = asyncHandler(async (req, res, next) => {
 
 // Article detail (rendered preview)
 exports.article_preview = asyncHandler(async (req, res, next) => {
-    const data = await Article.findByPk(req.params.id, {include: ['previousArticle', 'nextArticle']});
-
-    var appInstance = req.app;5
-    //appInstance.set('views', [path.join(__dirname, '../views/rendered-article'), ]);
-
+    const data = await Article.findByPk(req.params.id, {include: ['previousArticle', 'nextArticle']});    
     res.render("./rendered-article/article", { title: data.title, article: data, previousArticle: data?.previousArticle, nextArticle: data?.nextArticle });
+});
+
+// Article index preview (rendered preview)
+exports.article_index_preview = asyncHandler(async (req, res, next) => {
+    res.render("./rendered-index/index", { title: "Article Index", articles: await Article.findAll() });
 });
 
 // Article create / update form
 exports.article_create_get = asyncHandler(async (req, res, next) => {
     const data = (req.params.id) ? await Article.findByPk(req.params.id, {include: ['previousArticle', 'nextArticle']}) : null;
-
-    console.log("Data obtained for article is ", data);
     const links = await Article.getPossibleLinks(req.params.id);
 
     res.render("articleForm", { 
@@ -78,7 +77,17 @@ exports.article_delete_post = asyncHandler(async (req, res, next) => {
     res.send("NOT IMPLEMENTED: Article delete POST");
 });
 
-// Article rebuilt all action
-exports.article_rebuild_all_post = asyncHandler(async (req, res, next) => {
-    res.send("NOT IMPLEMENTED: Article rebuild");
+// Article rebuilt all action (this is done synchronously due to API limits, with a "sleep" between API calls; to improve, imnplement exponential backup)
+exports.article_rebuild_all_get = asyncHandler(async (req, res, next) => {    
+    const articles = await Article.findAll({include: ['previousArticle', 'nextArticle']});
+    var promises = [];
+    for await (const article of articles) {
+        await Promise.all([
+            article.publish(),
+            new Promise(resolve => { setTimeout(resolve, 500); })
+        ]);
+    };
+
+    //await Promise.all(promises);    
+    res.send("Everything is done rebuilding...");
 });

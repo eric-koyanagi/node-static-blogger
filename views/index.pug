@@ -1,11 +1,17 @@
 extends layout
 
 block content
-  div.max-w-lg
+  div.max-w-fit
     h1.text-2xl.mb-1.text-cyan-800= title
     p Welcome to the blog admin...
-    p.bg-zinc-300.p-3.my-2.rounded-md  
-      a(href="/article/create").text-cyan-700 + Create a new article
+    div.bg-zinc-300.p-3.my-2.rounded-md  
+      ul.flex.flex-wrap.justify-left.items-center
+        li.mr-3
+          a(href="/article/create").text-cyan-700 🆕 Create a new article
+        li
+          a(href="/article/index-preview").text-cyan-700 ⏩️ Preview Article Index
+        li.mr-3
+          a(href="/article/rebuild").text-cyan-700 🔄 Rebuild All Articles
     ul.articleList
       each article in articles
         li.border-l-4.border-cyan-500.mb-4.ml-3.pl-3
@@ -18,4 +24,4 @@ block content
           |  | 
           a(href="/article/view/"+article.id).text-cyan-800 Preview
       else
-        li There are no articles.
+        li There are no articles (yet).
