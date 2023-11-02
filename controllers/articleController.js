@@ -74,12 +74,19 @@ exports.article_create_post = [
 
 // Article delete confirmation form
 exports.article_delete_get = asyncHandler(async (req, res, next) => {
-    res.send("NOT IMPLEMENTED: Article delete GET");
+    const data = (req.params.id) ? await Article.findByPk(req.params.id) : null;
+    res.render("articleDeleteConfirmation", { article: data })
 });
 
 // Article delete action
 exports.article_delete_post = asyncHandler(async (req, res, next) => {
-    res.send("NOT IMPLEMENTED: Article delete POST");
+    if (req.body.confirm) {
+        const data = (req.params.id) ? await Article.findByPk(req.params.id) : null;
+        await article.delete();
+        res.send("Article deleted");
+    } else {
+        res.send("Article not deleted (confirmation box not checked)");
+    }    
 });
 
 // Article rebuild all action (this is done synchronously due to API limits, with a "sleep" between API calls; to improve, implement an exponential backup)

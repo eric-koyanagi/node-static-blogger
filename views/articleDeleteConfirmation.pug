@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  h1.text-xl Are you Sure you Want to Delete this Article?
+  div
+    a(href="/").text-cyan-600 &laquo; Back
+  br
+
+  if errors
+   ul.alert-danger
+    for error in errors.errors
+     li!= error.msg
+
+  form#edit-form(method='POST' action='').mx-auto
+    div.mb-5="You're about to delete: "      
+      b #{article.title}
+    div.mb-3             
+      input#confirm.form-check-input(type='checkbox', name='confirm', value='1')
+      label.form-check-label(for='confirm').text-gray-700.text-sm.font-bold.mb-2  Check box to confirm
+    div.mt-4.mb-5
+      button.btn-primary(type='submit', class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline') Delete Article
+  

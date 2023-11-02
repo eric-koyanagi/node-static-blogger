@@ -16,6 +16,7 @@ router.get("/article/edit/:id", article_controller.article_create_get);
 router.post("/article/edit/:id", article_controller.article_create_post);
 
 // POST request to delete
+router.get("/article/delete/:id", article_controller.article_delete_get);
 router.post("/article/delete/:id", article_controller.article_delete_post);
 
 // GET request to render an article for preview
