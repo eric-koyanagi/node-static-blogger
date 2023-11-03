@@ -1,6 +1,6 @@
 const path = require('path');
 const db = require("../models");
-const Article = db.articles;
+const Author = db.authors;
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 

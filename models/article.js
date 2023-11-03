@@ -1,6 +1,7 @@
 module.exports = (sequelize, Sequelize) => {
   const moment = require('moment');
   const { Op } = require("sequelize");
+  const db = require("../models/index");  
 
   const publisher = require('../services/S3Publisher');
   const pageBuilder = require('../services/ArticleDetailBuilder');
@@ -34,9 +35,12 @@ module.exports = (sequelize, Sequelize) => {
     }
   );
 
-  // Associations for next and previous links
+  //console.log("Author is ", db.authors, db)
+
+  // Associations
   Article.belongsTo(Article, { foreignKey: 'next_id', as: 'nextArticle' });
   Article.belongsTo(Article, { foreignKey: 'previous_id', as: 'previousArticle' }); 
+  //Article.hasOne(Author)
 
   // Class methods
 

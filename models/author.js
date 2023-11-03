@@ -1,6 +1,7 @@
 module.exports = (sequelize, Sequelize) => {
   const moment = require('moment');
   const { Op } = require("sequelize");
+  //const Article = require("../models/article");
 
   const Author = sequelize.define("authors", {
         first_name: {
@@ -25,7 +26,7 @@ module.exports = (sequelize, Sequelize) => {
   );
 
   // Associations  
-  Author.belongsTo(Article);
+  //Author.belongsTo(Article);
 
   // Class methods
 
