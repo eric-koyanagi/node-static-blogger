@@ -47,8 +47,6 @@ exports.author_create_post = [
                 github: req.body.github,
             }, [{id: req.body.id}])
 
-            //await article.publish();
-
             res.render("authorForm", { title: "Create or Edit Author", author: author, saved: true });
         } else {        
             res.render("authorForm", { title: "Create or Edit Author", author: req.body, errors: errors });
