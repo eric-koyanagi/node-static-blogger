@@ -35,7 +35,7 @@ exports.article_create_get = [
 
     // load the article form
     asyncHandler(async (req, res, next) => {
-        const data = (req.params.id) ? await Article.findByPk(req.params.id, {include: ['previousArticle', 'nextArticle']}) : null; 
+        const data = (req.params.id) ? await Article.findByPk(req.params.id, {include: ['previousArticle', 'nextArticle', 'author']}) : null; 
 
         res.render("articleForm", { 
             title: "Create or Edit Article", 

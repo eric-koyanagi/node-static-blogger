@@ -8,7 +8,17 @@ block content
       em Posted on #{article.getPublishedDate()}
     .
       !{article.body}
-    div.my-2.mb-5.rounded.bg-slate-100.p-3
+
+
+    if (previousArticle)
+      a(href="/articles/" + previousArticle.slug, class="text-cyan-500 hover:text-cyan-200") &laquo; #{previousArticle.title}
+    if (nextArticle)
+      if (previousArticle)
+        |  |     
+      a(href="/articles/" + nextArticle.slug, class="text-cyan-800 hover:text-cyan-500") #{nextArticle.title} &raquo; 
+
+
+    div.my-2.mb-8.rounded.bg-slate-100.p-3
       div.font-bold.text-lg 
         em #{article.author.first_name} #{article.author.last_name}
       div !{article.author.about}
@@ -20,9 +30,4 @@ block content
           a(href=article.author.github, class="rounded-full flex-initial p-1 hover:bg-white")
             img(src="/images/github.png" width=24)
           
-    if (previousArticle)
-      a(href="/articles/" + previousArticle.slug) &laquo; #{previousArticle.title}
-    if (nextArticle)
-      if (previousArticle)
-        |  |     
-      a(href="/articles/" + nextArticle.slug) #{nextArticle.title} &raquo; 
+
