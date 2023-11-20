@@ -3,11 +3,8 @@ const xml = require('xml')
 
 class SitemapBuilder {
   buildSitemap(articles, publisher) 
-  {
-    var appInstance = express();    
+  {  
     const sitemapXml = this.getXML(articles);
-    console.log("Gen of xml ", sitemapXml);
-    
     publisher.publish("sitemap.xml", sitemapXml);
   }
 
