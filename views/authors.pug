@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  div.max-w-fit
+    h1.text-2xl.mb-1.text-cyan-800= title
+    p Manage Author(s)
+    div.bg-zinc-300.p-3.my-2.rounded-md  
+      ul.flex.flex-wrap.justify-left.items-center
+        li.mr-3
+          a(href="/author/create").text-cyan-700 🆕 Create a new author
+        li.mr-3
+          a(href="/").text-cyan-700 ▶️ Manage Articles
+    ul.articleList
+      each author in authors
+        li.border-l-4.border-cyan-500.mb-4.ml-3.pl-3
+          span.font-bold #{author.first_name} #{author.last_name}
+          br 
+          a(href="/author/edit/"+author.id).text-cyan-800 Edit
+      else
+        li There are no authors (yet).

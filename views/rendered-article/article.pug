@@ -3,11 +3,23 @@ extends layout
 block content
   article.max-w-prose.mx-auto.mt-5.text-sm
     h1.text-lg=article.title
-    div By #{article.author}
+    div By #{article.author.first_name} #{article.author.last_name}
     div.mb-1
       em Posted on #{article.getPublishedDate()}
     .
       !{article.body}
+    div.my-2.mb-5.rounded.bg-slate-100.p-3
+      div.font-bold.text-lg 
+        em #{article.author.first_name} #{article.author.last_name}
+      div !{article.author.about}
+      div.my-1.flex
+        if (article.author.linkedin) 
+          a(href=article.author.linkedin, class="rounded-full flex-initial mr-1 p-1 hover:bg-white")
+            img(src="/images/linkedin.png" width=24)
+        if (article.author.github)
+          a(href=article.author.github, class="rounded-full flex-initial p-1 hover:bg-white")
+            img(src="/images/github.png" width=24)
+          
     if (previousArticle)
       a(href="/articles/" + previousArticle.slug) &laquo; #{previousArticle.title}
     if (nextArticle)

@@ -1,6 +1,7 @@
 const path = require('path');
 const db = require("../models");
 const Article = db.articles;
+const middleware = require('../middleware/articleMiddleware')
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 
@@ -13,8 +14,13 @@ exports.article_list = asyncHandler(async (req, res, next) => {
 
 // Article detail (rendered preview)
 exports.article_preview = asyncHandler(async (req, res, next) => {
-    const data = await Article.findByPk(req.params.id, {include: ['previousArticle', 'nextArticle']});    
-    res.render("./rendered-article/article", { title: data.title, article: data, previousArticle: data?.previousArticle, nextArticle: data?.nextArticle });
+    const data = await Article.findByPk(req.params.id, {include: ['previousArticle', 'nextArticle', 'author']});    
+    res.render("./rendered-article/article", { 
+        title: data.title, 
+        article: data, 
+        previousArticle: data?.previousArticle, 
+        nextArticle: data?.nextArticle
+    });
 });
 
 // Article index preview (rendered preview)
@@ -23,16 +29,22 @@ exports.article_index_preview = asyncHandler(async (req, res, next) => {
 });
 
 // Article create / update form
-exports.article_create_get = asyncHandler(async (req, res, next) => {
-    const data = (req.params.id) ? await Article.findByPk(req.params.id, {include: ['previousArticle', 'nextArticle']}) : null;
-    const links = await Article.getPossibleLinks(req.params.id || 0);
+exports.article_create_get = [
+    //middleware function for loading next/previous and author dropdown options
+    middleware.loadFormData,
 
-    res.render("articleForm", { 
-        title: "Create or Edit Article", 
-        article: data, 
-        articleList: links,
-    });
-});
+    // load the article form
+    asyncHandler(async (req, res, next) => {
+        const data = (req.params.id) ? await Article.findByPk(req.params.id, {include: ['previousArticle', 'nextArticle']}) : null; 
+
+        res.render("articleForm", { 
+            title: "Create or Edit Article", 
+            article: data, 
+            articleList: res.locals.links,
+            authorList: res.locals.authors,
+        });
+    })
+];
 
 // Article create / update action
 exports.article_create_post = [
@@ -49,26 +61,40 @@ exports.article_create_post = [
         .notEmpty()
         .trim()
         .escape(),
+    
+    middleware.loadFormData,
 
     asyncHandler(async (req, res, next) => {
+        let saved = false;
+        let article = {};
+
         // Extract the validation errors from a request and either create/update or re-render the form with errors
         const errors = validationResult(req);
         if (errors.isEmpty()) {
-            const article = await Article.upsert({
+            article = await Article.upsert({
                 title: req.body.title,
-                body: req.body.body,
-                author: req.body.author,
+                body: req.body.body,                
                 published: req.body.published,
                 nextId: req.body.next,
                 previousId: req.body.previous,
+                author_id: req.body.author,
             }, [{id: req.body.id}])
 
             await article.publish();    
-
-            res.render("articleForm", { title: "Create or Edit Article", article: article, saved: true, articleList: await Article.getPossibleLinks(req.body.id) });
-        } else {            
-            res.render("articleForm", { title: "Create or Edit Article", article: req.body, errors: errors, articleList: await Article.getPossibleLinks(req.body.id) });
+            saved = true;        
+        } else {
+            article = req.body;            
         }
+
+        res.render("articleForm", { 
+            title: "Create or Edit Article", 
+            article: article, 
+            errors: errors,
+            saved: saved, 
+            articleList: res.locals.links,
+            authorList: res.locals.authors
+        });
+
     })
 ];
 

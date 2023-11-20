@@ -1,0 +1,47 @@
+extends layout
+
+block content
+  h1.text-xl #{title}
+  div
+    a(href="/authors").text-cyan-600 &laquo; Back
+  br
+
+  if saved
+    div.bg-green-50.mb-3.p-3.rounded
+      p.text-green-600.font-bold Saved Successfully!
+
+  if errors
+   ul.alert-danger
+    for error in errors.errors
+     li!= error.msg
+
+  form#edit-form(method='POST' action='').mx-auto
+    input#body(type='hidden' name='body' value='')
+    input#body(type='hidden' name='id' value=(author ? author.id : ""))
+
+    div.mb-3 
+      label(for='first_name').text-gray-700.text-sm.font-bold.mb-2 First Name*:
+      input#title.form-control(type='text', placeholder='First Name' name='first_name' value=(author ? author.first_name : ""), class='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline')
+    div.mb-3 
+      label(for='last_name').text-gray-700.text-sm.font-bold.mb-2 Author*:
+      input#last_name.form-control(type='text', placeholder='Last Name' name='last_name' value=(author ? author.last_name : ""), class='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline')
+    div.mb-3 
+      label(for='body').text-gray-700.text-sm.font-bold.mb-2 About*:
+      div#articleBody.form-control(name='body', rows='30', class='max-h-screen overflow-auto shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline') !{(author ? author.about : "")}
+
+    div.mb-3 
+      label(for='linkedin').text-gray-700.text-sm.font-bold.mb-2 LinkedIn (optional):
+      input#linkedin.form-control(type='text', placeholder='https://www.linkedin.com/in/erickoyanagi/' name='linkedin' value=(author ? author.linkedin : ""), class='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline')
+
+
+    div.mb-3 
+      label(for='github').text-gray-700.text-sm.font-bold.mb-2 Github (optional):
+      input#github.form-control(type='text', placeholder='https://github.com/eric-koyanagi' name='github' value=(author ? author.github : ""), class='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline')
+
+
+    div.mt-4.mb-5
+      button.btn-primary(type='submit', class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline') Submit
+
+block scripts
+  script(src='/javascript/quillConfig.js')
+    

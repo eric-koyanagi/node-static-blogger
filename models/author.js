@@ -1,7 +1,7 @@
 module.exports = (sequelize, Sequelize) => {
   const moment = require('moment');
   const { Op } = require("sequelize");
-  //const Article = require("../models/article");
+  const db = require("../models/index"); 
 
   const Author = sequelize.define("authors", {
         first_name: {
@@ -25,11 +25,17 @@ module.exports = (sequelize, Sequelize) => {
     }
   );
 
-  // Associations  
-  //Author.belongsTo(Article);
-
   // Class methods
+  Author.upsert = function(values, condition) {
+    return Author
+      .findOne({ where: condition })
+      .then(function(obj) {
+          if(obj)
+            return obj.update(values);
 
+          return Author.create(values);
+      })
+  };
   
   return Author;
 };

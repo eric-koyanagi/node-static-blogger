@@ -14,9 +14,6 @@ module.exports = (sequelize, Sequelize) => {
         body: {
           type: Sequelize.TEXT
         },
-        author: {
-          type: Sequelize.STRING
-        },
         slug: {
           type: Sequelize.STRING
         },
@@ -29,18 +26,18 @@ module.exports = (sequelize, Sequelize) => {
         published: {
           type: Sequelize.BOOLEAN
         },
-    }, 
+        author_id: {
+          type: Sequelize.INTEGER,         
+        },
+    },
     {
         underscored: true,
     }
   );
 
-  //console.log("Author is ", db.authors, db)
-
   // Associations
   Article.belongsTo(Article, { foreignKey: 'next_id', as: 'nextArticle' });
   Article.belongsTo(Article, { foreignKey: 'previous_id', as: 'previousArticle' }); 
-  //Article.hasOne(Author)
 
   // Class methods
 
@@ -53,12 +50,12 @@ module.exports = (sequelize, Sequelize) => {
   // either update an existing article with these values, or make a new one
   Article.upsert = function(values, condition) {
     return Article
-      .findOne({ where: condition })
+      .findOne({ where: condition, include: 'author' })
       .then(function(obj) {
           if(obj)
             return obj.update(values);
 
-          return Model.create(values);
+          return Article.create(values);
       })
   };
 

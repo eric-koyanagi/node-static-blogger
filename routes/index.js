@@ -32,6 +32,13 @@ router.get("/article/index-preview", article_controller.article_index_preview);
 const author_controller = require("../controllers/authorController");
 
 // Author list and management portal
-router.get("/author", author_controller.author_list);
+router.get("/authors", author_controller.author_list);
+
+// GET + POST for author creation, edit, and update
+router.get("/author/create", author_controller.author_create_get);
+router.post("/author/create", author_controller.author_create_post);
+router.get("/author/edit/:id", author_controller.author_create_get);
+router.post("/author/edit/:id", author_controller.author_create_post);
+
 
 module.exports = router;
