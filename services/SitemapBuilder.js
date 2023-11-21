@@ -22,7 +22,7 @@ class SitemapBuilder {
         ...articles.map((article) => {
           return {
             url: [
-              { loc: process.env.WEB_URL_BASE || "" + article.slug },
+              { loc: (process.env.WEB_URL_BASE || "") + "/" + article.slug },
               { lastmod: article.updated_at },
               { changefreq: 'monthly' },
               { priority: 0.8 },
