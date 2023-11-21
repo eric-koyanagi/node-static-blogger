@@ -117,7 +117,7 @@ exports.article_delete_post = asyncHandler(async (req, res, next) => {
 
 // Article rebuild all action (this is done synchronously due to API limits, with a "sleep" between API calls; to improve, implement an exponential backoff)
 exports.article_rebuild_all_get = asyncHandler(async (req, res, next) => {    
-    const articles = await Article.findAll({include: ['previousArticle', 'nextArticle']});
+    const articles = await Article.findAll({include: ['previousArticle', 'nextArticle', 'author']});
     var promises = [];
     for await (const article of articles) {
         await Promise.all([
