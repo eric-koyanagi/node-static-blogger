@@ -6,8 +6,7 @@ block content
     div By #{article.author.first_name} #{article.author.last_name}
     div.mb-1
       em Posted on #{article.getPublishedDate()}
-    .
-      !{article.body}
+    div !{article.body}
 
 
     if (previousArticle)
@@ -17,8 +16,8 @@ block content
         |  |     
       a(href="/articles/" + nextArticle.slug, class="text-cyan-800 hover:text-cyan-500") #{nextArticle.title} &raquo; 
 
-
-    div.my-2.mb-8.rounded.bg-slate-100.p-3
+    div.mt-4.text-slate-500.text-xs Written By:
+    div.mt-1.mb-8.rounded.bg-slate-100.p-3.bg-gradient-to-r.from-cyan-400.to-sky-400
       div.font-bold.text-lg 
         em #{article.author.first_name} #{article.author.last_name}
       div !{article.author.about}
