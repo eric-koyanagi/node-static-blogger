@@ -4,11 +4,18 @@ html
     title= title
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1')
-
-    link(rel="stylesheet", href="//cdn.quilljs.com/1.3.6/quill.snow.css")
+    
     link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    p Head goes here
+  body.bg-gradient-to-r.from-sky-100.via-cyan-100.to-teal-100.py-3.text-center
+    div
+      div.text-3xl.font-bold.pt-2 Welcome!
+      div.container.max-w-prose.mx-auto.text-left
+        span Heya. My name is Eric, and I hope you're having a fantastic day. This blog is a repository for my random articles or thoughts -- it was built using Node/ExpressJS and is hosted on AWS for less than $0.01 per month (there's also a Laravel version in my github!).
     block content
-    p Footer goes here
+    div.py-3.flex
+      div.container.mx-auto.text-center.text-xs
+        a(href="/") Article Home | 
+        a(href="https://erickoyanagi.com") My Resume | 
+        a(href="https://www.linkedin.com/in/erickoyanagi/") My LinkedIn
+        div!="&copy All Rights Reserved"
   block scripts

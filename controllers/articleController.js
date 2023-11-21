@@ -25,7 +25,7 @@ exports.article_preview = asyncHandler(async (req, res, next) => {
 
 // Article index preview (rendered preview)
 exports.article_index_preview = asyncHandler(async (req, res, next) => {
-    res.render("./rendered-index/index", { title: "Article Index", articles: await Article.findAll() });
+    res.render("./rendered-index/index", { title: "Article Index", articles: await Article.findAll({ order: [['id', 'DESC']] }) });
 });
 
 // Article create / update form

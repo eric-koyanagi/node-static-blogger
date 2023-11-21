@@ -1,20 +1,23 @@
 extends layout
 
 block content
-  h1.text-2xl.mb-1= title
-  p Welcome to the blog admin...
-  p  
-    a(href="/article/create") + Create a new article
-  ul.articleList
+  h1.text-2xl.mb-1 All Articles
+
+  div.max-w-prose.mx-auto
     each article in articles
-      li
-        span #{article.title}
-        br 
-        span 
-          em Posted #{article.getPublishedDate()} 
-        br
-        a(href="/article/edit/"+article.id) Edit
-        |  | 
-        a(href="/article/view/"+article.id) Preview
+      a(href="/"+article.slug, class="block bg-cyan-100 hover:bg-cyan-300")
+        div.border.rounded.border-slate-800.p-2.my-2        
+          span.font-bold #{article.title}
+          br
+          em Posted on #{article.getPublishedDate()} 
     else
-      li There are no articles.
+      div.text-lg.text-center There are no articles (yet).
+
+    div.mt-1.mb-8.rounded.bg-slate-100.p-3.bg-gradient-to-r.from-cyan-400.to-sky-400.text-slate-800
+      div.font-bold.text-lg About Me...
+      div.text-left 
+        p I'm a happy person living in the beautiful Pacific Northwest with my husband and pets. Having lived all over the U.S., I am very lucky to be in an industry where remote work is possible. As a self-taught engineer, I'm very grateful for the opportunities I've had that have shaped my career. 
+        p While I truly love software engineering, it isn't my entire life. I aslo enjoy video games (both as a hobbyist game dev and as a player), reading, writing, and spending way too much time on our damn dog. 
+        p I don't intend to make any money from this blog -- these articles are as much for my benefit as anyone else's, as it helps me learn concepts, research more deeply, and aids in memory. Since it only costs a few pennies a year to host, why not make a blog?! 
+        p Interested in hiring me? Find me on 
+          a(href="https://www.linkedin.com/in/erickoyanagi/", class="text-cyan-100 hover:text-cyan-300") LinkedIn.

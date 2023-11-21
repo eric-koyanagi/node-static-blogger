@@ -2,6 +2,7 @@ extends layout
 
 block content
   article.max-w-prose.mx-auto.mt-5.text-sm
+    a(href="/", class="text-xs text-cyan-500 hover:text-cyan-200") &laquo; Back to Article List
     h1.text-lg=article.title
     div By #{article.author.first_name} #{article.author.last_name}
     div.mb-1
