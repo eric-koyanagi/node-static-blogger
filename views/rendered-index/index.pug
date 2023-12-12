@@ -6,10 +6,11 @@ block content
   div.max-w-prose.mx-auto
     each article in articles
       a(href="/"+article.slug, class="block bg-cyan-100 hover:bg-cyan-300")
-        div.border.rounded.border-slate-800.p-2.my-2        
-          span.font-bold #{article.title}
-          br
-          em Posted on #{article.getPublishedDate()} 
+        div.border.rounded.border-slate-800.p-2.my-2
+          article         
+            h2.text-sm.font-bold #{article.title}
+            em Posted on 
+              time(datetime=article.createdAt) #{article.getPublishedDate()}
     else
       div.text-lg.text-center There are no articles (yet).
 

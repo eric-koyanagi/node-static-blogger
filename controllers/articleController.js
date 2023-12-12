@@ -73,6 +73,7 @@ exports.article_create_post = [
         if (errors.isEmpty()) {
             article = await Article.upsert({
                 title: req.body.title,
+                slug: slugify(req.body.title),
                 body: req.body.body,                
                 published: req.body.published,
                 nextId: req.body.next,
@@ -128,3 +129,22 @@ exports.article_rebuild_all_get = asyncHandler(async (req, res, next) => {
   
     res.send("Everything is done rebuilding...");
 });
+
+function slugify(input) {
+    if (!input)
+        return '';
+
+    // make lower case and trim
+    var slug = input.toLowerCase().trim();
+
+    // remove accents from charaters
+    slug = slug.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+
+    // replace invalid chars with spaces
+    slug = slug.replace(/[^a-z0-9\s-]/g, ' ').trim();
+
+    // replace multiple spaces or hyphens with a single hyphen
+    slug = slug.replace(/[\s-]+/g, '-');
+
+    return slug;
+}
