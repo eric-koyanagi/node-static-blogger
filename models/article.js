@@ -78,12 +78,12 @@ module.exports = (sequelize, Sequelize) => {
   };
 
   // publish the article, building a static page and sending it to a data store (S3)
-  Article.prototype.publish = async function() {
+  Article.prototype.publish = async function() {      
       await pageBuilder.setContent(this)
       await indexBuilder.setContent(Article)
-
+      
       indexBuilder.buildPage(publisher);
-      pageBuilder.buildPage(publisher);
+      pageBuilder.buildPage(publisher);      
   };
 
   // because sequalize is stupid and does not tell you about reserved words for columns! Really silly...
