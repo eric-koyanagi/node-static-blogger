@@ -20,13 +20,15 @@ class SitemapBuilder {
 
         // For every page of the site, generate a <url> object
         ...articles.map((article) => {
-          return {
-            url: [
-              { loc: (process.env.WEB_URL_BASE || "") + "/" + article.slug },
-              { lastmod: article.updated_at },
-              { changefreq: 'monthly' },
-              { priority: 0.8 },
-            ],
+          if (article.publish) {
+            return {
+              url: [
+                { loc: (process.env.WEB_URL_BASE || "") + "/" + article.slug },
+                { lastmod: article.updated_at },
+                { changefreq: 'monthly' },
+                { priority: 0.8 },
+              ],
+            }
           }
         }),
       ],
