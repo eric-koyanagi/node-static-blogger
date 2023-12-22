@@ -86,7 +86,7 @@ module.exports = (sequelize, Sequelize) => {
   Article.prototype.publish = async function() {      
 
       // This only publishes "blog" site articles to S3; use API access for other use cases      
-      if (this.site == "blog") {
+      if (this.site == process.env.PUBLISHED_SITE) {
         await pageBuilder.setContent(this)
         await indexBuilder.setContent(Article)
         

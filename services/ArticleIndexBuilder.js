@@ -7,8 +7,10 @@ const express = require('express')
 class ArticleIndexBuilder extends PageBuilderInterface {
   async setContent(Article) 
   {  
-    this.data = await Article.findAll({ 
-      site: process.env.PUBLISHED_SITE,
+    this.data = await Article.findAll({
+      where: { 
+        site: process.env.PUBLISHED_SITE
+      },
       order: [['id', 'DESC']]
     })
   }
