@@ -27,5 +27,17 @@ Compared to the laravel version, I'll include a few upgrades:
 * An author model; relates 1 to many with articles
 * (possibly) a proper syntax highighter for code blocks
 
+# API and Multiple sites
+This project incldues a "site" property for every article. By default, articles will be added to the
+"blog" site. Define this as PUBLISHED_SITE in your ENV file; only articles that belong to this site will be beamed to S3. 
+
+Why? This project includes an API that allows you to fetch all articles for a given site. This way, you can use this system to create simple content for multiple properties. 
+
+This is a good solution for when you need generic content for a site, including a WYSIWYG editor, but you don't want to spin up a blog or integrate this into your main application. Perhaps you're building a product and want to blog occasionally, but don't want the overhead of a blog or to host it on a different subdomain (as is typical, since blog software is often separate from your main sites).
+
+With this, you can set up a really simple API to pull in articles and format them as you need for your other apps. You can still run it locally, too.
+
+For example, I set up an express app that calls this api, writes each file it gets back to a disk, and dynamically creates a "route" file as well. I have a manual "sync" route that does all this, and the files I get back end up in source control and deployed as if they were any other static resource. 
+
 # More about hosting a blog for a dollar per month
 As an example, see https://articles.erickoyanagi.com/hosting-a-blog-on-s3-for-pennies-a-month.html -- this describes more about how the Laravel platform works and describes how to set this up on AWS through S3 and CloudFront (instructions that aren't always easy to find).

@@ -4,6 +4,7 @@ module.exports = (sequelize, Sequelize) => {
   const db = require("../models/index");  
 
   const publisher = require('../services/S3Publisher');
+  const localPublisher = require('../services/LocalPublisher');
   const pageBuilder = require('../services/ArticleDetailBuilder');
   const indexBuilder = require('../services/ArticleIndexBuilder');
 
@@ -29,6 +30,10 @@ module.exports = (sequelize, Sequelize) => {
         author_id: {
           type: Sequelize.INTEGER,         
         },
+        site: {
+          type: Sequelize.STRING,
+          defaultValue: "blog"
+        }
     },
     {
         underscored: true,
@@ -79,11 +84,15 @@ module.exports = (sequelize, Sequelize) => {
 
   // publish the article, building a static page and sending it to a data store (S3)
   Article.prototype.publish = async function() {      
-      await pageBuilder.setContent(this)
-      await indexBuilder.setContent(Article)
-      
-      indexBuilder.buildPage(publisher);
-      pageBuilder.buildPage(publisher);      
+
+      // This only publishes "blog" site articles to S3; use API access for other use cases      
+      if (this.site == "blog") {
+        await pageBuilder.setContent(this)
+        await indexBuilder.setContent(Article)
+        
+        indexBuilder.buildPage(publisher);
+        pageBuilder.buildPage(publisher);      
+      }
   };
 
   // because sequalize is stupid and does not tell you about reserved words for columns! Really silly...
