@@ -1,6 +1,11 @@
 # node-static-blogger
 A static blogger to cheaply host content on S3. This is similar in concept to a project I wrote in PHP/Laravel that does the same thing: https://github.com/eric-koyanagi/laravel-static-blogger. 
 
+# Starting the project
+`npm run devstart` to start the server
+`npm run tailwind:css` to refresh tailwind
+`npx sequelize-cli db:migrate` to run database migrations
+
 # What is this for?
 As stated in my Laravel project, this allows a tech-savvy author to host simple articles or blog posts without the overhead of a hosted blog. Using a very simple UI, this allows a user to create one or more articles. These are converted to static files (complete with headers, footers, auto-generated links, images, and content) and uploaded to Amazon's S3.
 

@@ -5,7 +5,12 @@ module.exports = {
     './public/javascript/quillConfig.js'
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        display: 'Oswald', 
+        heading: 'Protest Guerrilla, ui-sans-serif'
+      }
+    },
   },
   plugins: [
     {
