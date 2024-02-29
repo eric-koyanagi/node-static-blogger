@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+blockquote {
+    background: #ccc;
+    padding:15px;
+    font-style: italic;
+}

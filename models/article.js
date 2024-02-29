@@ -60,7 +60,7 @@ module.exports = (sequelize, Sequelize) => {
           if(obj)
             return obj.update(values);
 
-          return Article.create(values);
+          return Article.create(values, { include: 'author' });
       })
   };
 
@@ -93,6 +93,17 @@ module.exports = (sequelize, Sequelize) => {
         indexBuilder.buildPage(publisher);
         pageBuilder.buildPage(publisher);      
       }
+  };
+
+  // delete the article
+  Article.prototype.delete = async function() {      
+    try {
+      await this.destroy(); 
+      return true; 
+    } catch (error) {
+      console.error('Error deleting article:', error); // Log any errors
+      throw error; 
+    }
   };
 
   // because sequalize is stupid and does not tell you about reserved words for columns! Really silly...

@@ -5,7 +5,7 @@ class SitemapBuilder {
   buildSitemap(articles, publisher) 
   {  
     const sitemapXml = this.getXML(articles);
-    publisher.publish("sitemap.xml", sitemapXml);
+    publisher.publish("sitemap.xml", sitemapXml, {contentType: "application/xml"});
   }
 
   // Construct and return a basic XML object with entries for each article

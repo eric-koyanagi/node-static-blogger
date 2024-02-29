@@ -83,7 +83,8 @@ exports.article_create_post = [
             }, [{id: req.body.id}])
 
             await article.publish();    
-            saved = true;        
+            saved = true;
+            //res.redirect('/');            
         } else {
             article = req.body;            
         }
@@ -110,7 +111,7 @@ exports.article_delete_get = asyncHandler(async (req, res, next) => {
 exports.article_delete_post = asyncHandler(async (req, res, next) => {
     if (req.body.confirm) {
         const data = (req.params.id) ? await Article.findByPk(req.params.id) : null;
-        await article.delete();
+        await data.delete();
         res.send("Article deleted");
     } else {
         res.send("Article not deleted (confirmation box not checked)");
