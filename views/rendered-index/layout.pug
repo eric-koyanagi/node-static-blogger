@@ -9,12 +9,19 @@ html
     link(rel='preconnect', href='https://fonts.gstatic.com', crossorigin)
     link(href='https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Protest+Guerrilla&display=swap', rel='stylesheet')
     link(rel='stylesheet', href='/stylesheets/style.css')
-  body.bg-gradient-to-r.py-3.text-center
-    div.my-8
-      div.text-3xl.font-bold.pt-2 Welcome!
-      div.container.max-w-prose.mx-auto.text-left
-        span Heya. My name is Eric, and I hope you're having a fantastic day. This blog is a repository for my random articles or thoughts -- it was built using Node/ExpressJS and is hosted on AWS for less than $0.01 per month (there's also a Laravel version in my github!).
+  body
+    div.py-8.px-4.bg-fixed.bg-cover(class='sm:px-8', style='background-image:url("../images/jj-ying-unsplash.jpg")')
+      h1.text-4xl.font-heading.pt-2.text-white This Small Corner 
+      p.text-white.font-display Eric Koyanagi's tech blog. At least it's free!
+    
+    div.bg-slate-950.py-4.px-4.text-white(class='sm:px-8 sm:pb-8')
+      h2.text-xl.font-heading.pt-2 Let's Connect!
+      p.font-display.pb-4.pt-2 I am a software engineer focusing mostly on web-based applications. While much of my experience is with the LAMP stack or C#, I believe strong SE skills apply to any niche.
+      a(href="https://www.linkedin.com/in/erickoyanagi/", class="font-display mt-3 bg-cyan-700 rounded px-4 py-1") &raquo; My LinkedIn
+      a(href="https://github.com/eric-koyanagi", class="ml-1 font-display mt-3 bg-cyan-700 rounded px-4 py-1") &raquo; My Github
+
     block content
+
     div.py-3.flex
       div.container.mx-auto.text-center.text-xs
         a(href="/") Article Home | 

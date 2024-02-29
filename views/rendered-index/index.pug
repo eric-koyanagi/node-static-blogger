@@ -1,25 +1,26 @@
 extends layout
 
 block content
-  h1.text-2xl.mb-1 All Articles
+  h2.text-3xl.py-4.font-heading.px-4(class="sm:px-8") Articles
 
-  div.max-w-prose.mx-auto
-    each article in articles
-      if article.published
-        a(href="/"+article.slug, class="block bg-cyan-100 hover:bg-cyan-300")
-          div.border.rounded.border-slate-800.p-2.my-2
-            article         
-              h2.text-sm.font-bold #{article.title}
-              em Posted on 
-                time(datetime=article.createdAt) #{article.getPublishedDate()}
-    else
-      div.text-lg.text-center There are no articles (yet).
+  main
+    div.px-4(class="sm:px-8")
+      each article in articles
+        if article.published
+          a(href="/"+article.slug, title=article.title, class="block")
+            div.p-2.my-2
+              article.font-display         
+                h3.text-sm.font-bold #{article.title}
+                em Posted on 
+                  time(datetime=article.createdAt) #{article.getPublishedDate()}
+      else
+        div.text-lg.text-center There are no articles (yet).
 
-    div.mt-1.mb-8.rounded.bg-slate-100.p-3.bg-gradient-to-r.from-cyan-400.to-sky-400.text-slate-800
-      div.font-bold.text-lg About Me...
-      div.text-left 
+    div.mt-1.mb-8.bg-slate-100.p-4.bg-gradient-to-r.from-cyan-400.to-sky-400.text-slate-800(class="sm:p-8")
+      div.font-bold.text-xlg.font-heading More About Me...? Eh, okay...
+      div.text-left.font-display 
         p I'm a happy person living in the beautiful Pacific Northwest with my husband and pets. Having lived all over the U.S., I am very lucky to be in an industry where remote work is possible. As a self-taught engineer, I'm very grateful for the opportunities I've had that have shaped my career. 
-        p While I truly love software engineering, it isn't my entire life. I aslo enjoy video games (both as a hobbyist game dev and as a player), reading, writing, and spending way too much time on our damn dog. 
-        p I don't intend to make any money from this blog -- these articles are as much for my benefit as anyone else's, as it helps me learn concepts, research more deeply, and aids in memory. Since it only costs a few pennies a year to host, why not make a blog?! 
-        p Interested in hiring me? Find me on 
-          a(href="https://www.linkedin.com/in/erickoyanagi/", class="text-cyan-100 hover:text-cyan-300") LinkedIn.
+        p.pt-2 While I truly love software engineering, it isn't my entire life. I aslo enjoy video games (both as a hobbyist game dev and as a player), reading, writing, and spending way too much time on our damn dog. 
+        p.pt-2 I don't intend to make any money from this blog -- these articles are as much for my benefit as anyone else's, as it helps me learn concepts, research more deeply, and aids in memory. It only costs a few pennies a year to host thanks to static site generation!
+        p.pt-2 Interested in hiring me? Find me on 
+          a.underline(href="https://www.linkedin.com/in/erickoyanagi/", class="") LinkedIn.
