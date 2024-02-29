@@ -5,30 +5,23 @@ html
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1')
     
+    link(rel='preconnect', href='https://fonts.googleapis.com')
+    link(rel='preconnect', href='https://fonts.gstatic.com', crossorigin)
+    link(href='https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Protest+Guerrilla&display=swap', rel='stylesheet')
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
-    div.bg-gradient-to-r.from-sky-100.via-cyan-100.to-teal-100.py-3.flex
-      div.container.mx-auto.font-bold.text-lg
-        span.text-red-500 E
-        span.text-orange-500 r
-        span.text-green-500 i
-        span.text-blue-500 c 
-        span.text-violet-500 K
-        span.text-red-500 o
-        span.text-orange-500 y
-        span.text-green-500 a
-        span.text-blue-500 n
-        span.text-violet-500 a
-        span.text-red-500 g
-        span.text-orange-500 i
-        div.text-sm.font-normal
-          em Just Another Tech Blog
-    div.container.mx-auto      
+    
+    div.py-8.px-4.bg-fixed.bg-cover(class='sm:px-8', style='background-image:url("/images/jj-ying-unsplash.jpg")')
+      h1.text-4xl.font-heading.pt-2.text-white This Small Corner 
+      p.text-white.font-display Eric Koyanagi's tech blog. At least it's free!
+
+    div      
       block content
+
     div.bg-gradient-to-r.from-sky-100.via-cyan-100.to-teal-100.py-3.flex
       div.container.mx-auto.text-center.text-xs
         a(href="/") Article Home | 
-        a(href="https://erickoyanagi.com") My Resume | 
+        a(href="https://erickoyanagi.com") My Portfolio | 
         a(href="https://www.linkedin.com/in/erickoyanagi/") My LinkedIn
         div!="&copy All Rights Reserved"
   block scripts
