@@ -33,6 +33,9 @@ module.exports = (sequelize, Sequelize) => {
         site: {
           type: Sequelize.STRING,
           defaultValue: "blog"
+        },
+        short_desc: {
+          type: Sequelize.TEXT
         }
     },
     {

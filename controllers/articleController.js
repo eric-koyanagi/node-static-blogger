@@ -79,7 +79,8 @@ exports.article_create_post = [
                 nextId: req.body.next,
                 previousId: req.body.previous,
                 author_id: req.body.author,
-                site: req.body.site
+                site: req.body.site,
+                short_desc: req.body.short_desc
             }, [{id: req.body.id}])
 
             await article.publish();    

@@ -39,6 +39,10 @@ block content
       label(for='body').text-gray-700.text-sm.font-bold.mb-2 Body*:
       div#articleBody.form-control(name='body', rows='30', class='max-h-screen overflow-auto shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline') !{(article ? article.body : "")}
 
+    div.mb-3 
+      label(for='short_desc').text-gray-700.text-sm.font-bold.mb-2 Summary:
+      textarea#articleShortDesc.form-control(name='short_desc', rows='6', class='max-h-screen overflow-auto shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline') !{(article ? article.short_desc : "")}
+
     div.form-group
       label(for='previous').text-gray-700.text-sm.font-bold.mb-2 Previous Article:
       br

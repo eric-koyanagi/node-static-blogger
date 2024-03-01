@@ -11,6 +11,9 @@ block content
             div.p-2.my-2
               article.font-display         
                 h3.text-sm.font-bold #{article.title}
+                if article.short_desc 
+                  p #{article.short_desc} 
+                    span.underline Read Full Article
                 em Posted on 
                   time(datetime=article.createdAt) #{article.getPublishedDate()}
       else

@@ -1,37 +1,38 @@
 extends layout
 
 block content
-  article.px-4(class="sm:px-8 sm:container sm:mx-auto")
-    h1.text-2xl.font-heading.mt-2(class="sm:mt-6")=article.title
-    
-    div.font-display By #{article.author.first_name} #{article.author.last_name}
-    div.font-display.mb-1
-      em Posted on 
-        time(datetime=article.createdAt) #{article.getPublishedDate()}
-    div !{article.body}
+  main.article 
+    article.px-4(class="sm:px-8 sm:container sm:mx-auto")
+      h1.text-2xl.font-heading.mt-2(class="sm:mt-6")=article.title
+      
+      div.font-display By #{article.author.first_name} #{article.author.last_name}
+      div.font-display.mb-1
+        em Posted on 
+          time(datetime=article.createdAt) #{article.getPublishedDate()}
+      div !{article.body}
 
 
-    if (previousArticle)
-      a(href="/" + previousArticle.slug, class="text-cyan-500 hover:text-cyan-200") &laquo; #{previousArticle.title}
-    if (nextArticle)
       if (previousArticle)
-        |  |     
-      a(href="/" + nextArticle.slug, class="text-cyan-800 hover:text-cyan-500") #{nextArticle.title} &raquo; 
+        a(href="/" + previousArticle.slug, class="text-cyan-500 hover:text-cyan-200") &laquo; #{previousArticle.title}
+      if (nextArticle)
+        if (previousArticle)
+          |  |     
+        a(href="/" + nextArticle.slug, class="text-cyan-800 hover:text-cyan-500") #{nextArticle.title} &raquo; 
 
-    div
-      a(href="/", class="text-xs text-cyan-500 hover:text-cyan-200") &laquo; Back to Article List
+      div
+        a(href="/", class="text-xs text-cyan-500 hover:text-cyan-200") &laquo; Back to Article List
 
-  div.mt-1.bg-slate-100.p-4.bg-gradient-to-r.from-cyan-400.to-sky-400(class="sm:px-8")
-    div.mt-4.text-slate-500.text-xs Written By
-    div.font-bold.text-lg 
-      em #{article.author.first_name} #{article.author.last_name}
-    div !{article.author.about}
-    div.my-1.flex
-      if (article.author.linkedin) 
-        a(href=article.author.linkedin, class="rounded-full flex-initial mr-1 p-1 hover:bg-white")
-          img(src="/images/linkedin.png" width=24)
-      if (article.author.github)
-        a(href=article.author.github, class="rounded-full flex-initial p-1 hover:bg-white")
-          img(src="/images/github.png" width=24)    
+    div.mt-1.bg-slate-100.p-4.bg-gradient-to-r.from-cyan-400.to-sky-400(class="sm:px-8")
+      div.mt-4.text-slate-500.text-xs Written By
+      div.font-bold.text-lg 
+        em #{article.author.first_name} #{article.author.last_name}
+      div !{article.author.about}
+      div.my-1.flex
+        if (article.author.linkedin) 
+          a(href=article.author.linkedin, class="rounded-full flex-initial mr-1 p-1 hover:bg-white")
+            img(src="/images/linkedin.png" width=24)
+        if (article.author.github)
+          a(href=article.author.github, class="rounded-full flex-initial p-1 hover:bg-white")
+            img(src="/images/github.png" width=24)    
           
 
