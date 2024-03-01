@@ -25,3 +25,10 @@ html
         a(href="https://www.linkedin.com/in/erickoyanagi/") My LinkedIn
         div!="&copy All Rights Reserved"
   block scripts
+
+  script(async src="https://www.googletagmanager.com/gtag/js?id=G-HSQQP37YMS")
+  script.
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HSQQP37YMS');
