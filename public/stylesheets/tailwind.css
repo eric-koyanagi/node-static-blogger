@@ -11,3 +11,7 @@ blockquote {
 main.article a {
     text-decoration: underline;
 }
+
+.ql-indent-1 {
+    margin-left: 15px;
+}

@@ -85,6 +85,7 @@ exports.article_create_post = [
 
             await article.publish();    
             saved = true;
+            console.log("Created new article", article);            
             //res.redirect('/');            
         } else {
             article = req.body;            

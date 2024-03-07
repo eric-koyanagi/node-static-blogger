@@ -56,15 +56,13 @@ module.exports = (sequelize, Sequelize) => {
   }
 
   // either update an existing article with these values, or make a new one
-  Article.upsert = function(values, condition) {
-    return Article
-      .findOne({ where: condition, include: 'author' })
-      .then(function(obj) {
-          if(obj)
-            return obj.update(values);
+  Article.upsert = async function(values, condition) {
+    let article = await Article.findOne({ where: condition, include: 'author' })
+    if (article) {
+      return await article.update(values);
+    }
 
-          return Article.create(values, { include: 'author' });
-      })
+    return await Article.create(values, { include: ['author'] });
   };
 
   // get all possible next/previous links (all article except the selected one)
@@ -90,9 +88,14 @@ module.exports = (sequelize, Sequelize) => {
 
       // This only publishes "blog" site articles to S3; use API access for other use cases      
       if (this.site == process.env.PUBLISHED_SITE) {
-        await pageBuilder.setContent(this)
-        await indexBuilder.setContent(Article)
-        
+        if (!this.author) {
+          let article = await Article.findOne({ where: [{id: this.id}], include: 'author' });
+          await pageBuilder.setContent(article);
+        } else {
+          await pageBuilder.setContent(this);
+        }
+
+        await indexBuilder.setContent(Article);        
         indexBuilder.buildPage(publisher);
         pageBuilder.buildPage(publisher);      
       }
