@@ -1,5 +1,8 @@
 extends layout
 
+block title 
+  title #{article.title}
+
 block content
   main.article 
     article.px-4(class="sm:px-8 sm:container sm:mx-auto")
